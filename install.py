@@ -5,19 +5,23 @@ Usage:
     curl -sSL https://raw.githubusercontent.com/benoistlaurent/pdbget/main/install.py | python3
 """
 import os
-import sys
 import shutil
+import ssl
+import subprocess
+import sys
 import tempfile
 import urllib.request
-import subprocess
 
-REPO_URL = "https://raw.githubusercontent.com/benoistlaurent/pdbget/main/pdbget.py"
+REPO_URL = "https://raw.githubusercontent.com/benoistlaurent/pdbget/refs/heads/main/src/pdbget.py"
 SCRIPT_NAME = "pdbget"
 INSTALL_DIR = os.path.expanduser("~/.local/bin")
 
 
 def download_script(url, dest):
-    with urllib.request.urlopen(url) as response:
+    context = ssl._create_unverified_context()
+    with urllib.request.urlopen(url, context=context) as response:
+        if response.status != 200:
+            raise Exception(f"Failed to download {url}: {response.status}")
         with open(dest, "wb") as out_file:
             out_file.write(response.read())
 
