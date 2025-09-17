@@ -1,0 +1,17 @@
+[project]
+name = "pdbget"
+version = "0.1.0"
+description = "A tool to download PDB files from the Protein Data Bank."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project.urls]
+source = "https://github.com/benoistlaurent/pdbget"
+
+[project.scripts]
+pdbget = "pdbget:main"
